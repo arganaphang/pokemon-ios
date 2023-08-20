@@ -9,6 +9,8 @@ import Foundation
 
 class HomeViewModel: ObservableObject {
     @Published private(set) var state = ViewState<[Pokemon]>.idle
+    @Published var search = ""
+    
     init() {
         state = .loading
         Task.init {
@@ -23,5 +25,10 @@ class HomeViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    // TODO: Make new Request to PokeAPI with debounce
+    func search(text: String) {
+        debugPrint(text)
     }
 }

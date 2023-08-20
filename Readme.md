@@ -1,8 +1,9 @@
 ## Todos
 - [ ] Search
+  - [x] UI
+  - [ ] Debounce
+  - [ ] Logic
 - [ ] Infinite Scroll
 - [ ] Styling State
-  - [ ] Idle
-  - [ ] Loading
   - [ ] Error
-- [ ] Styling Detail Screen
+- [x] Styling Detail Screen

@@ -37,16 +37,18 @@ struct DetailScreen: View {
                         .font(.headline.bold())
                         .foregroundColor(pokemon.color)
                     ForEach(pokemon.stats, id: \.self) { item in
-                        let width = geo.size.width-180
+                        let width = geo.size.width-200
+                        let label = item.key.split(separator: "-").joined(separator: " ").capitalized
                         HStack(alignment: .center) {
-                            Text("\(item.key.capitalized)")
-                                .font(.subheadline)
+                            Text("\(label)")
+                                .font(.caption.bold())
+                                .lineLimit(1)
                                 .foregroundColor(item.color.opacity(0.75))
-                                .frame(width: 50)
+                                .frame(width: 75)
                             Text("\(item.value)")
                                 .font(.subheadline.bold())
                                 .foregroundColor(item.color.opacity(0.75))
-                                .frame(width: 25)
+                                .frame(width: 20)
                             ProgressBar(value: item.value, width: width, color: item.color)
                         }
                         
@@ -60,6 +62,14 @@ struct DetailScreen: View {
 
 struct DetailScreen_Previews: PreviewProvider {
     static var previews: some View {
-        DetailScreen(pokemon: Pokemon(id: 1, name: "bulbasaur", height: 69, weight: 69, stats: [], types: ["grass", "poison"]))
+        DetailScreen(pokemon: Pokemon(
+            id: 1,
+            name: "bulbasaur",
+            height: 69,
+            weight: 69,
+            stats: [
+                Stat(key: "special-attack", value: 65)
+            ],
+            types: ["grass", "poison"]))
     }
 }

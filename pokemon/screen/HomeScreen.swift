@@ -17,15 +17,12 @@ struct HomeScreen: View {
         NavigationView {
             ScrollView(.vertical, showsIndicators: false) {
                 switch homeVM.state {
-                case .idle:
-                    Text("Error").frame(minHeight: 240)
-                case .loading:
+                case .idle, .loading:
                     LazyVGrid(columns: layout, spacing: 20) {
                         ForEach(0..<10) { _ in
                             PokemonCardSkeleton()
                         }
-                    }.padding(.horizontal, 24)
-                    
+                    }.padding(.horizontal, 10)
                 case let .failed(error):
                     Text(error.localizedDescription)
                 case let .loaded(pokemons):
@@ -35,9 +32,14 @@ struct HomeScreen: View {
                                 PokemonCard(pokemon: pokemon)
                             }
                         }
-                    }.padding(.horizontal, 24)
+                    }.padding(.horizontal, 10)
                 }
-            }.navigationTitle("Pokemon List")
+            }
+            .searchable(text: $homeVM.search, prompt: "Search pokemon")
+            .onChange(of: homeVM.search) { searchText in
+                homeVM.search(text: searchText)
+            }
+            .navigationTitle("Pokemon List")
         }
     }
 }
